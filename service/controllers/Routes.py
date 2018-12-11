@@ -2,7 +2,7 @@ import logging
 from flask import request, Blueprint, jsonify
 
 from service import app
-from service.controllers import MailController
+from service.controllers import MessageController
 
 bp = Blueprint('mail_service', __name__, template_folder='templates')
 
