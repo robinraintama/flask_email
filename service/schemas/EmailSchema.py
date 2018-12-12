@@ -7,3 +7,4 @@ class EmailSchema(Schema):
     last_name = fields.String()
 
 email_schema = EmailSchema()
+all_email_schema = EmailSchema(many=True)

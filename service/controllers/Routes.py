@@ -25,3 +25,8 @@ def saveEmails():
 
         return jsonify(response)
 
+@bp.route("/get_emails", methods=["GET"])
+def showEmails():
+    response['EMAILS'] = MessageController.getEmails()
+    return jsonify(response)
+

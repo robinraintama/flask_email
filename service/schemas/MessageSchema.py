@@ -5,6 +5,6 @@ class MessageSchema(Schema):
     event_id = fields.Integer()
     email_subject = fields.String()
     email_content = fields.String()
-    timestamp = fields.Datetime()
+    timestamp = fields.DateTime()
 
 message_schema = MessageSchema()
