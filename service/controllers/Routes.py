@@ -12,18 +12,20 @@ response = {
 
 @bp.route("/save_emails", methods=["POST"])
 def saveEmails():
-    try:
-        data       = request.json
-        
-        return jsonify(response)
-    except Exception as e:
-        logging.exception(e)
-        response['MESSAGE'] = "Whoops..sorry try again later"
+    if request.content_type == 'application/json':
+        try:
+            data       = request.json
+            response['MESSAGE'] = "SUCCESS"
+        except Exception as e:
+            logging.exception(e)
+            response['MESSAGE'] = "Whoops..sorry try again later"
 
-        # Launch alert email
-        # ...
-
-        return jsonify(response)
+            # Launch alert email
+            # ...
+    else:
+        response['MESSAGE'] = "Send your request with JSON format"
+    
+    return jsonify(response)
 
 @bp.route("/get_emails", methods=["GET"])
 def showEmails():

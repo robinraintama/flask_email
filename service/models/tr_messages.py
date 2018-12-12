@@ -6,3 +6,4 @@ class Messages(db.Model):
     event_id                = db.Column(db.Integer)
     email_subject           = db.Column(db.String(200))
     email_content           = db.Column(db.String(500))
+    timestamp               = db.Column(db.DateTime())

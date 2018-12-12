@@ -1,15 +1,24 @@
+import logging
+from datetime import datetime
+
 from service.schemas import MessageSchema, EmailSchema
 from service.models import tr_messages, tm_emails
+from service import db
 
-def saveMessage(request):
-    json_data = request.get_json()
-    if not json_data:
-        return 'No input data provided'
-
+def saveMessage(data):
     try:
-        data = MessageSchema
+        data['timestamp'] = convertToDateTime(data['timestamp'])
+        message = tr_messages.Messages(**data)
+        db.session.add(message)
+        return db.session.commit()
+    except Exception as e:
+        logging.exception(e)
+        return 'Please check your request'
 
 def getEmails():
     emails = tm_emails.Emails.query.all()
     return EmailSchema.all_email_schema.dump(emails).data
+
+def convertToDateTime(str):
+    return datetime.strptime(str, '%d %b %Y %H:%M')
 
