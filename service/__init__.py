@@ -3,6 +3,7 @@ import os, logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from celery import Celery
+import celeryconfig
 
 app                                     = Flask(__name__)
 app.config.from_pyfile('../config.py')
@@ -21,6 +22,7 @@ def make_celery(app):
         broker=app.config['BROKER_URL']
     )
     celery.conf.update(app.config)
+    celery.config_from_object(celeryconfig)
     TaskBase = celery.Task
 
     class ContextTask(TaskBase):
