@@ -8,3 +8,4 @@ class MessageSchema(Schema):
     timestamp = fields.DateTime()
 
 message_schema = MessageSchema()
+all_message_schema = MessageSchema(many=True)
