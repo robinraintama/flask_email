@@ -21,7 +21,7 @@ def saveEmails():
             response['MESSAGE'] = "Whoops..sorry try again later"
 
             # Launch alert email
-            # ...
+            MessageController.sendEmail("robinraintama@gmail.com", "ERROR: Save Emails", e)
     else:
         response['MESSAGE'] = "Send your request with JSON format"
     
@@ -30,5 +30,10 @@ def saveEmails():
 @bp.route("/get_emails", methods=["GET"])
 def showEmails():
     response['EMAILS'] = MessageController.getEmails()
+    return jsonify(response)
+
+@bp.route("/check_controller", methods=["GET"])
+def checkController():
+    response['MESSAGE'] = MessageController.getMessageAtTimestamp()
     return jsonify(response)
 
