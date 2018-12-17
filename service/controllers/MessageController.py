@@ -16,7 +16,7 @@ def saveMessage(data):
         emails = getEmails()
         for email in emails:
                 print(email, data["email_subject"], data["email_content"]) 
-                email_users.apply_sync(args=[email['email'], data["email_subject"], data["email_content"]], countdown=1)
+                email_users.apply_async(args=[email['email'], data["email_subject"], data["email_content"]], countdown=1)
 
         return db.session.commit()
     except Exception as e:
