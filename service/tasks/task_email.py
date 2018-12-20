@@ -9,8 +9,8 @@ def email_users(email, subject, message):
     logger.info("email_users called")
     try:
         with app.app_context():
-            MessageController.sendEmail(email, subject, message)
-            logger.info("Success {}".format(mail['email']))
+            response = MessageController.sendEmail(email, subject, message)
+            logger.info("Success {}".format(response))
     
     except Exception as e:
         logging.exception(e)

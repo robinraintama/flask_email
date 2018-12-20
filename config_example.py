@@ -23,13 +23,12 @@ JSON_SORT_KEYS          = False
 CELERY_RESULT_BACKEND   = BROKER_URL
 
 # EMAIL
-## MAILGUN
-MAIL_API_KEY            = 'api_key'
-MAIL_DOMAIN             = 'https:mail.domain.com/endpoint'
+# MAIL_API_KEY            = 'api_key'
+# MAIL_DOMAIN             = 'https:mail.domain.com/endpoint'
 MAIL_SERVER             = 'smtp.email.com'
 MAIL_SENDER             = 'Sender'
-#MAIL_USERNAME          = ''
-#MAIL_PASSWORD          = ''
-#MAIL_PORT              = 587
-#MAIL_USE_SSL           = False
-MAIL_USE_TLS            = True
+MAIL_USERNAME          = ''
+MAIL_PASSWORD          = ''
+MAIL_PORT              = 465
+MAIL_USE_SSL           = True
+MAIL_USE_TLS            = False
