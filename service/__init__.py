@@ -40,8 +40,10 @@ celery = make_celery(app)
 
 from service.models import *
 from service.controllers import *
+# from service.apage import apage
 
 app.register_blueprint(Routes.bp, url_prefix="/api")
+# app.register_blueprint(apage, url_prefix="/form")
 
 @app.route('/')
 def index():
