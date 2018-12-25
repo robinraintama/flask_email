@@ -41,7 +41,8 @@ def getMessageAtTimestamp():
     return MessageSchema.all_message_schema.dump(messages).data
 
 def getSecondsDifference(dt):
-        return (dt - datetime.now().timestamp())
+        dtDelta = (dt - datetime.now()).total_seconds()
+        return int(dtDelta)
 
 def sendEmail(email_addresses, subject, message):
         print(email_addresses, subject, message)
