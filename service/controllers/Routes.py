@@ -15,8 +15,11 @@ def saveEmails():
     if request.content_type == 'application/json':
         try:
             data       = request.json
-            db_message = MessageController.saveMessage(data)
-            response['MESSAGE'] = "SUCCESS"
+            result = MessageController.saveMessage(data)
+            if result is None:
+                response['MESSAGE'] = "SUCCESS"
+            else:
+                response['MESSAGE'] = result
         except Exception as e:
             logging.exception(e)
             response['MESSAGE'] = "Whoops..sorry try again later"
