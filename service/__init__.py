@@ -5,11 +5,15 @@ from flask_sqlalchemy import SQLAlchemy
 from celery import Celery
 import celeryconfig
 
+from flask_bootstrap import Bootstrap
+
 app                                     = Flask(__name__)
 app.config.from_pyfile('../config.py')
 
 db                                      = SQLAlchemy(app)
 # app.app_context().push()
+
+Bootstrap(app)
 
 basedir                                 = os.path.abspath(os.path.dirname(__file__))
 LOG_FILENAME                            = basedir+'/log/error.log'
