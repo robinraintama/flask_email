@@ -32,3 +32,5 @@ MAIL_PASSWORD          = ''
 MAIL_PORT              = 465
 MAIL_USE_SSL           = True
 MAIL_USE_TLS            = False
+
+SECRET_KEY              = 'any secret string'

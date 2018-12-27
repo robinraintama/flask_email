@@ -1,11 +1,11 @@
 from flask import render_template, jsonify
 
-from service import apage
+from . import apage
 from service.controllers import MessageController
 
-from forms import MotivationEmailForm
+from .forms import MotivationEmailForm
 
-@apage.route('/')
+@apage.route('/', methods=["GET"])
 def apageIndex():
     form = MotivationEmailForm()
     request = {}
@@ -19,4 +19,5 @@ def apageIndex():
         else:
             # Next show error on template
             return 'Not cool, it is life. Lets try again'
-    return render_template('apage/index.html', form=form, title="SMERT")
+    
+    return render_template('apage.html', form=form, title="SMERT")
