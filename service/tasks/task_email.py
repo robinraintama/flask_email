@@ -3,6 +3,7 @@ import celery
 from service import app
 from service.controllers import MessageController
 
+# Task to send email asynchronously
 @celery.task
 def email_users(email, subject, message):
     logger = email_users.get_logger()

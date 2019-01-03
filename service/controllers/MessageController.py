@@ -10,9 +10,15 @@ from service.tasks.task_email import email_users
 
 def saveMessage(data):
     try:
+        # Convert timestamp string to general datetime format
         data['timestamp'] = convertToDateTime(data['timestamp'])
+
+        # Timestamp should be greater than now
         if data['timestamp'] > datetime.now():
+                # Get delta time in seconds
                 delaySeconds = getSecondsDifference(data['timestamp'])
+
+                # Save message to database
                 message = tr_messages.Messages(**data)
                 db.session.add(message)
 
@@ -21,8 +27,13 @@ def saveMessage(data):
                 for email in emails:
                         arEmails.append(email['email'])
                 print(arEmails, data["email_subject"], data["email_content"]) 
+
+                # Call email task asynchronously
+                # ARGS = Email addreses, subject, content
+                # Countdown = delta time in seconds
                 email_users.apply_async(args=[arEmails, data["email_subject"], data["email_content"]], countdown=delaySeconds)
 
+                # Commit db transaction
                 return db.session.commit()
         else:
                 return 'Check your datetime'
@@ -36,7 +47,6 @@ def getEmails():
 
 def getMessageAtTimestamp():
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M')
-#     messages = tr_messages.Messages.query.filter_by(timestamp=timestamp).all()
     messages = tr_messages.Messages.query.all()
     return MessageSchema.all_message_schema.dump(messages).data
 
@@ -44,6 +54,7 @@ def getSecondsDifference(dt):
         dtDelta = (dt - datetime.now()).total_seconds()
         return int(dtDelta)
 
+# Send email function with SMTP
 def sendEmail(email_addresses, subject, message):
         print(email_addresses, subject, message)
 

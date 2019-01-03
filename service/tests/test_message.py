@@ -10,12 +10,13 @@ class MailTests(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
 
+    # Check if function only accept content type JSON
     def test_add_email_non_json(self):
         body_request = {
             "event_id": 1,
             "email_subject": "NON JSON",
             "email_content": "TEXT TYPE",
-            "timestamp": "1 Jan 2019 10:10"
+            "timestamp": "1 Feb 2019 10:10"
         }
 
         with self.app as app:
@@ -28,12 +29,14 @@ class MailTests(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(data['MESSAGE'], 'Send your request with JSON format')
 
+    # Check send email success return values
+    # If failed because 'Check your datetime', update the timestamp to current with additional couple minutes datetime
     def test_add_email(self):
         body_request = {
             "event_id": 1,
             "email_subject": "NON JSON",
             "email_content": "TEXT TYPE",
-            "timestamp": "1 Jan 2019 10:10"
+            "timestamp": "1 Feb 2019 10:10"
         }
 
         with self.app as app:
@@ -50,9 +53,9 @@ class MailTests(unittest.TestCase):
             for key in ['VERSION', 'MESSAGE']:
                 keyInside = key in data
                 if keyInside and key == 'VERSION':
-                    self.assertTrue(data['VERSION'] == 'v0.1')
+                    self.assertEqual(data['VERSION'], 'v0.1')
                 elif keyInside and key == 'MESSAGE':
-                    self.assertTrue(data['MESSAGE'] == 'SUCCESS')
+                    self.assertEqual(data['MESSAGE'], "SUCCESS")
                 else:
                     break
 

@@ -7,18 +7,23 @@ import celeryconfig
 
 from flask_bootstrap import Bootstrap
 
-app                                     = Flask(__name__)
+# Initialize Flask and config
+app = Flask(__name__)
 app.config.from_pyfile('../config.py')
 
-db                                      = SQLAlchemy(app)
+# Initialize MYSQL/MARIADB connection
+db = SQLAlchemy(app)
 # app.app_context().push()
 
+# Initialize bBootstrap
 Bootstrap(app)
 
-basedir                                 = os.path.abspath(os.path.dirname(__file__))
-LOG_FILENAME                            = basedir+'/log/error.log'
+# Initialize Log
+basedir = os.path.abspath(os.path.dirname(__file__))
+LOG_FILENAME = basedir+'/log/error.log'
 logging.basicConfig(filename=LOG_FILENAME, level=logging.ERROR)
 
+# Initialize Celery
 def make_celery(app):
     # create context tasks in celery
     celery = Celery(
@@ -46,9 +51,12 @@ from service.models import *
 from service.controllers import *
 from service.apage import apage
 
+# Register blueprint for GUI(form) and API
 app.register_blueprint(Routes.bp, url_prefix="/api")
 app.register_blueprint(apage, url_prefix="/form")
 
+# Welcoming message
+# Quick check to make sure your flask is working
 @app.route('/')
 def index():
     return 'Welcome welcome welcome'
