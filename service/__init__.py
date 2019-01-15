@@ -2,10 +2,10 @@ import os, logging
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
+from flask_jwt_extended import JWTManager
 from celery import Celery
 import celeryconfig
-
-from flask_bootstrap import Bootstrap
 
 # Initialize Flask and config
 app = Flask(__name__)
@@ -47,12 +47,15 @@ def make_celery(app):
 
 celery = make_celery(app)
 
+jwt = JWTManager(app)
+
 from service.models import *
 from service.controllers import *
 from service.apage import apage
 
 # Register blueprint for GUI(form) and API
-app.register_blueprint(Routes.bp, url_prefix="/api")
+app.register_blueprint(Routes.bp_mail, url_prefix="/api")
+app.register_blueprint(Routes.bp_jwt, url_prefix="/jwt")
 app.register_blueprint(apage, url_prefix="/form")
 
 # Welcoming message

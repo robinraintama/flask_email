@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "service.__init__.app",
+        "aws_region": "ap-southeast-1",
+        "profile_name": "default",
+        "project_name": "flask-email",
+        "runtime": "python3.6",
+        "s3_bucket": "zappa-flask-email"
+    }
+}

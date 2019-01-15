@@ -48,3 +48,6 @@ MAIL_USE_TLS            = False
 
 # Secret Key
 SECRET_KEY              = 'any secret string'
+
+# JWT
+JWT_SECRET              = 'ancient_secret_language'
